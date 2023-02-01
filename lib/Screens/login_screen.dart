@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../Common/Utils.dart';
+import 'HomeScreen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
       key: scaffoldKey,
       backgroundColor: Colors.pinkAccent,
       body: Column(
-        children: <Widget>[
+        children: [
           SizedBox(
             height: 60,
           ),
@@ -42,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Form(
               key: globalFormKey,
               child: Column(
-                children: <Widget>[
+                children: [
                   SizedBox(height: 15),
                   Text(
                     "Login",
@@ -51,6 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 20),
                   TextFormField(
+                    validator: (input) =>
+                        input!.length < 1 ? "Please enter your name" : null,
                     // onChanged: (value) {
                     //   user = value;
                     // },
@@ -123,7 +128,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     onPressed: () {
-                      if (validateAndSave()) {}
+                      if (validateAndSave()) {
+                        Get.offAll(HomeScreen());
+                      } else {
+                        Utils.showErrorDialog(
+                            context, "Please enter the correct credentials.");
+                      }
                     },
                     child: Text(
                       "Login",
@@ -133,17 +143,6 @@ class _LoginPageState extends State<LoginPage> {
                     // shape: StadiumBorder(),
                   ),
                   SizedBox(height: 15),
-                  // TextButton(
-                  //   onPressed: () {},
-                  //   child: Text(
-                  //     "Register",
-                  //     style: TextStyle(
-                  //       fontSize: 22,
-                  //       fontWeight: FontWeight.normal,
-                  //       color: Colors.black,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
