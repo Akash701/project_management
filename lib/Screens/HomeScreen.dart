@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_manager/Screens/tabs/Create.dart';
+import 'package:project_manager/Screens/tabs/HomePage/HomePage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -6,17 +8,15 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  TabController? _tabController;
+class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
+  // void initState() {
+  //   super.initState();
+  //   _tabController = TabController(length: 2, vsync: this);
+  // }
 
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -45,14 +45,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
         ),
         body: TabBarView(
-          controller: _tabController,
           children: [
-            Center(
-              child: Text("Home Page"),
-            ),
-            Center(
-              child: Text("Create"),
-            ),
+            HomePage(),
+            Create(),
           ],
         ),
       ),
