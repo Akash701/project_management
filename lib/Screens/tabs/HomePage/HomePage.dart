@@ -58,7 +58,12 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox();
+                        return Divider(
+                          color: Colors.green,
+                          thickness: 2,
+                          indent: 50,
+                          endIndent: 50,
+                        );
                       },
                       itemCount: _items.length),
                 )

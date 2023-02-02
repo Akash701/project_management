@@ -11,4 +11,23 @@ class CommonStyles {
       fontWeight: FontWeight.w400,
     ));
   }
+
+  static floatingButtonStyle() {
+    return const TextStyle(
+        fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16.0);
+  }
+
+  static InputDecoration textFieldStyle(
+      {String labelTextStr = "",
+      String hintTextStr = "",
+      required EdgeInsetsGeometry content}) {
+    return InputDecoration(
+      contentPadding: content,
+      labelText: labelTextStr,
+      hintText: hintTextStr,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
 }

@@ -1,23 +1,24 @@
 class ProjectModel {
-  final String taskName;
-  final String createdDate;
-  final String endDate;
-  final int progress;
+  final String projectName;
+  final String teamName;
+  final String description;
+  final String progress;
 
-  ProjectModel(this.taskName, this.createdDate, this.endDate, this.progress);
+  ProjectModel(
+      this.projectName, this.teamName, this.description, this.progress);
 
   //constructor that convert json to object instance
   ProjectModel.fromJson(Map<String, dynamic> json)
-      : taskName = json['name'],
-        createdDate = json['email'],
-        endDate = json['phone'],
+      : projectName = json['projectNmae'],
+        teamName = json['teamName'],
+        description = json['description'],
         progress = json['progress'];
 
   //a method that convert object to json
   Map<String, dynamic> toJson() => {
-        'name': taskName,
-        'email': createdDate,
-        'phone': endDate,
+        'name': projectName,
+        'email': teamName,
+        'phone': description,
         'progress': progress
       };
 }
