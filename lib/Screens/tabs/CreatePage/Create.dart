@@ -32,8 +32,10 @@ class _CreateState extends State<Create> {
                   itemBuilder: (context, index) {
                     return Card(
                       child: ListTile(
-                        title: Text(addProjectController
-                            .projectList[index].projectName),
+                        title: Text(""
+                            // addProjectController
+                            // .projectList[index].projectName
+                            ),
                       ),
                     );
                   },

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:project_manager/getxController/addProjectController.dart';
 import 'package:project_manager/models/projectModel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Common/CommonStyles.dart';
 
@@ -18,37 +17,6 @@ class AddProject extends StatefulWidget {
 
 class _AddProjectState extends State<AddProject> {
   AddProjectController addProjectController = Get.put(AddProjectController());
-  // TextEditingController projectName = TextEditingController();
-  // TextEditingController teamName = TextEditingController();
-  // TextEditingController description = TextEditingController();
-  // TextEditingController progress = TextEditingController();
-
-  late SharedPreferences sharedPreferences;
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //
-  //   super.initState();
-  //   GetSavedData();
-  // }
-  //
-  // void GetSavedData() async {
-  //   sharedPreferences = await SharedPreferences.getInstance();
-  //   Map<String, dynamic> jsonData =
-  //       jsonDecode(sharedPreferences.getString('projectData')!);
-  //   var project = ProjectModel.fromJson(jsonData);
-  //   if (jsonData.isNotEmpty) {}
-  // }
-
-  void savedData() {
-    ProjectModel projectModel = ProjectModel(
-        addProjectController.projectName.text,
-        addProjectController.description.text,
-        addProjectController.teamName.text,
-        addProjectController.progress.text);
-    String projectData = jsonEncode(projectModel);
-    sharedPreferences.setString('projectData', projectData);
-  }
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -100,7 +68,7 @@ class _AddProjectState extends State<AddProject> {
             ),
             ElevatedButton(
               onPressed: () {
-                savedData();
+                Get.back();
               },
               child: Text('Save and Submmit'),
             )
