@@ -27,75 +27,46 @@ class _CreateState extends State<Create> {
         member: () {},
       ),
       body: GetBuilder<AddProjectController>(
-          builder: (cont) => ListView.builder(
-              itemCount: cont.projectsCount,
-              itemBuilder: (context, index) {
-                if (cont.projectsCount > 0) {
-                  ProjectModel? projectModel = cont.observableBox.getAt(index);
-                  return Card(
-                    child: ListTile(
-                      title: Text(projectModel?.projectName ?? "N/A"),
-                      subtitle: Text(projectModel?.description ?? "N/A"),
-                      leading: IconButton(
-                          onPressed: () => addEditProject(
-                              index: index, projectModel: projectModel),
-                          icon: const Icon(Icons.edit)),
-                      trailing: IconButton(
-                          onPressed: () => cont.deleteProject(index: index),
-                          icon: const Icon(Icons.delete)),
-                    ),
+          builder: (cont) => ListView.separated(
+                itemCount: cont.projectsCount,
+                itemBuilder: (context, index) {
+                  if (cont.projectsCount > 0) {
+                    ProjectModel? projectModel =
+                        cont.observableBox.getAt(index);
+                    return Card(
+                      child: ListTile(
+                        title: Text("${projectModel?.projectName}"),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("${projectModel?.teamName}"),
+                            Text("${projectModel?.description}"),
+                          ],
+                        ),
+                        leading: IconButton(
+                            onPressed: () => addEditProject(
+                                index: index, projectModel: projectModel),
+                            icon: const Icon(Icons.edit)),
+                        trailing: IconButton(
+                            onPressed: () => cont.deleteProject(index: index),
+                            icon: const Icon(Icons.delete)),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("List is Empty"),
+                    );
+                  }
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return Divider(
+                    color: Colors.green,
+                    thickness: 2,
+                    indent: 50,
+                    endIndent: 50,
                   );
-                } else {
-                  return const Center(
-                    child: Text("List is Empty"),
-                  );
-                }
-              })),
-      // Column(
-      //   children: [
-      //     Obx(() {
-      //       if (addProjectController.projectsCount == 0) {
-      //         return Text('Project needs to be added');
-      //       } else {
-      //         return ListView.separated(
-      //             itemBuilder: (context, index) {
-      //               ProjectModel project =
-      //                   addProjectController.observableBox.getAt(index);
-      //               return Card(
-      //                 child: ListTile(
-      //                   title: Text("${project.projectName}"
-      //                       // addProjectController
-      //                       // .projectList[index].projectName
-      //                       ),
-      //                   subtitle: Text("${project.description}"),
-      //                   trailing: Text("${project.team}"),
-      //                   leading: Row(
-      //                     children: [
-      //                       IconButton(
-      //                           onPressed: () {
-      //                             AddProject(
-      //                               index: index,
-      //                               projectModel: project,
-      //                             );
-      //                           },
-      //                           icon: const Icon(Icons.edit)),
-      //                       IconButton(
-      //                           onPressed: () => addProjectController
-      //                               .deleteProject(index: index),
-      //                           icon: const Icon(Icons.delete)),
-      //                     ],
-      //                   ),
-      //                 ),
-      //               );
-      //             },
-      //             separatorBuilder: (BuildContext context, int index) {
-      //               return SizedBox();
-      //             },
-      //             itemCount: addProjectController.projectsCount);
-      //       }
-      //     })
-      //   ],
-      // ),
+                },
+              )),
     );
   }
 
