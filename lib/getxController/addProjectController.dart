@@ -39,6 +39,7 @@ class AddProjectController extends GetxController {
 
   deleteProject({required int index}) {
     _observableBox.deleteAt(index);
+
     update();
   }
 }
