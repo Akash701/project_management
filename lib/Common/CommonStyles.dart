@@ -30,4 +30,14 @@ class CommonStyles {
       ),
     );
   }
+
+  static textDataWhite14() {
+    return GoogleFonts.montserrat(
+        textStyle: const TextStyle(
+      color: Colors.white,
+      backgroundColor: Colors.transparent,
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+    ));
+  }
 }
