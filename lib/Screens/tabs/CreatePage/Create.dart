@@ -9,6 +9,8 @@ import '../../../models/memberModel.dart';
 import '../../../widgets/floatingAction.dart';
 import 'package:intl/intl.dart';
 
+import '../../../widgets/title_text.dart';
+
 class Create extends StatefulWidget {
   const Create({Key? key}) : super(key: key);
 
@@ -34,46 +36,78 @@ class _CreateState extends State<Create> {
         },
       ),
       body: GetBuilder<AddMemberController>(
-          builder: (cont) => ListView.separated(
-                itemCount: cont.memberCount,
-                itemBuilder: (context, index) {
-                  if (cont.memberCount > 0) {
-                    MemberModel? memberModel =
-                        cont.memberObservableBox.getAt(index);
-                    return Card(
-                      child: ListTile(
-                        title: Text("${memberModel?.memberName}"),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("${memberModel?.gender}"),
-                            Text("${memberModel?.designation}"),
-                          ],
+        builder: (cont) => ListView.separated(
+            itemCount: cont.memberCount,
+            separatorBuilder: (BuildContext context, int index) => SizedBox(
+                  height: 15,
+                ),
+            itemBuilder: (context, index) {
+              if (cont.memberCount > 0) {
+                MemberModel? memberModel =
+                    addMemberController.memberObservableBox.getAt(index);
+                return Card(
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.deepOrange,
+                    ),
+                    contentPadding: EdgeInsets.symmetric(),
+                    title: TitleText(
+                      text:
+                          "${memberModel?.memberName} (${memberModel?.gender})",
+                      fontSize: 18,
+                    ),
+                    subtitle: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("${memberModel?.designation}"),
+                        SizedBox(
+                          height: 5,
                         ),
-                        leading: IconButton(
-                            onPressed: () => addEditMember(
-                                index: index, memberModel: memberModel),
-                            icon: const Icon(Icons.edit)),
-                        trailing: IconButton(
-                            onPressed: () => cont.deleteProject(index: index),
-                            icon: const Icon(Icons.delete)),
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: Text("List is Empty"),
-                    );
-                  }
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Divider(
-                    color: Colors.green,
-                    thickness: 2,
-                    indent: 50,
-                    endIndent: 50,
-                  );
-                },
-              )),
+                        Text("Date of Birth: ${memberModel?.dob}"),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text("Email: ${memberModel?.email}"),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text("Skill: ${memberModel?.skill}"),
+                      ],
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green[300],
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                          ),
+                          onPressed: () {
+                            addEditMember(
+                                index: index, memberModel: memberModel);
+                          },
+                          child: Text('Edit'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            cont.deleteProject(index: index);
+                          },
+                          child: Text('Delete'),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Text("Please insert Member Details"),
+                );
+              }
+            }),
+      ),
     );
   }
 

@@ -19,66 +19,115 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   AddProjectController addProjectController = Get.put(AddProjectController());
   final formKey = GlobalKey<FormState>();
-  List _items = [];
-  Future<void> homeJsonData() async {
-    final String response = await rootBundle.loadString('assets/projects.json');
-    final data = await jsonDecode(response);
-    setState(() {
-      _items = data["items"];
-    });
-  }
-
-  @override
-  initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      homeJsonData();
-    });
-    super.initState();
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<AddProjectController>(
-          builder: (cont) => ListView.separated(
-                itemCount: cont.projectsCount,
-                itemBuilder: (context, index) {
-                  if (cont.projectsCount > 0) {
-                    ProjectModel? projectModel =
-                        cont.observableBox.getAt(index);
-                    return Card(
-                      child: ListTile(
-                        title: Text("${projectModel?.projectName}"),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("${projectModel?.teamName}"),
-                            Text("${projectModel?.description}"),
-                          ],
+        builder: (cont) => ListView.separated(
+            itemCount: cont.projectsCount,
+            separatorBuilder: (BuildContext context, int index) => SizedBox(
+                  height: 15,
+                ),
+            itemBuilder: (context, index) {
+              if (cont.projectsCount > 0) {
+                ProjectModel? projectModel =
+                    addProjectController.observableBox.getAt(index);
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Card(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.0), //(x,y)
+                                blurRadius: 6.0,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${projectModel?.projectName}",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Team: ${projectModel?.teamName}",
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                child: Text("${projectModel?.description}"),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Divider(),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(Icons.task),
+                                  Text(
+                                    '3',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () => addEditProject(
+                                        index: index,
+                                        projectModel: projectModel),
+                                    child: Text('Update'),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.redAccent,
+                                    ),
+                                    onPressed: () =>
+                                        cont.deleteProject(index: index),
+                                    child: Text("Delete"),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        leading: IconButton(
-                            onPressed: () => addEditProject(
-                                index: index, projectModel: projectModel),
-                            icon: const Icon(Icons.edit)),
-                        trailing: IconButton(
-                            onPressed: () => cont.deleteProject(index: index),
-                            icon: const Icon(Icons.delete)),
                       ),
-                    );
-                  } else {
-                    return const Center(
-                      child: Text("List is Empty"),
-                    );
-                  }
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Divider(
-                    color: Colors.green,
-                    thickness: 2,
-                    indent: 50,
-                    endIndent: 50,
-                  );
-                },
-              )),
+                    ),
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: Text("Please add a project"),
+                );
+              }
+            }),
+      ),
     );
   }
 
