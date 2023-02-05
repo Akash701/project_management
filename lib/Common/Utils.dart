@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 // import 'package:get/get.dart';
-import '../Screens/tabs/CreatePage/Addproject.dart';
 import '../getxController/addProjectController.dart';
 import '../models/projectModel.dart';
 import 'CommonStyles.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_manager/Common/Utils.dart';
-import 'package:project_manager/Screens/tabs/CreatePage/Addproject.dart';
 import 'package:project_manager/getxController/addMemberController.dart';
 import 'package:project_manager/models/projectModel.dart';
 import '../../../getxController/addProjectController.dart';

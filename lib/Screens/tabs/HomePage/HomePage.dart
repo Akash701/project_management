@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../getxController/addProjectController.dart';
+import '../../../getxController/addTaskController.dart';
 import '../../../models/projectModel.dart';
 import '../CreatePage/Create.dart';
 import 'TaskDetails.dart';
@@ -18,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   AddProjectController addProjectController = Get.put(AddProjectController());
+  AddTaskController addTaskController = Get.put(AddTaskController());
   final formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(() => TaskDetails());
+                          Get.to(() => TaskDetails(index));
                         },
                         child: Card(
                           child: Container(
@@ -92,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Icon(Icons.task),
                                     Text(
-                                      '3',
+                                      '${addTaskController.taskCount}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w700),
                                     ),

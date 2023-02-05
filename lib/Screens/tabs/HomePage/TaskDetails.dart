@@ -12,8 +12,8 @@ import '../../../widgets/title_text.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class TaskDetails extends StatefulWidget {
-  // int pageIndex;
-  // TaskDetails(this.pageIndex);
+  int index;
+  TaskDetails(this.index);
   @override
   State<TaskDetails> createState() => _TaskDetailsState();
 }
@@ -98,7 +98,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                         lineWidth: 5.0,
                         percent:
                             addTaskController.slider.value.toDouble() / 100,
-                        center: new Text("${taskModel?.progress}%"),
+                        center: Text("${taskModel?.progress}%"),
                         progressColor: Colors.green,
                       ),
                     ),
@@ -266,7 +266,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                           return Column(
                             children: [
                               Text(
-                                  '${addTaskController.slider.value.toString()}%'),
+                                  'Progress: ${addTaskController.slider.value.toString()}%'),
                               Slider(
                                   value:
                                       addTaskController.slider.value.toDouble(),
