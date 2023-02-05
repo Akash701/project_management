@@ -8,7 +8,7 @@ class AddTaskController extends GetxController {
   TextEditingController taskName = TextEditingController();
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
-  // TextEditingController progress = TextEditingController();
+  TextEditingController progress = TextEditingController();
   RxInt slider = 10.obs;
 
   @override
@@ -16,7 +16,7 @@ class AddTaskController extends GetxController {
     taskName.dispose();
     startDate.dispose();
     endDate.dispose();
-    // progress.dispose();
+    progress.dispose();
     super.dispose();
   }
 

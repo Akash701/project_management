@@ -138,7 +138,8 @@ class _CreateState extends State<Create> {
                 child: ListView(
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(hintText: "Project"),
+                      decoration: Utils().textInputDecoration(
+                          'Project Name', "Enter the Project name"),
                       controller: addProjectController.projectName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -151,7 +152,8 @@ class _CreateState extends State<Create> {
                       height: 20,
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(hintText: "team name"),
+                      decoration: Utils().textInputDecoration(
+                          'Task Name', "Enter the Task name"),
                       controller: addProjectController.teamName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -164,8 +166,8 @@ class _CreateState extends State<Create> {
                       height: 20,
                     ),
                     TextFormField(
-                      decoration:
-                          const InputDecoration(hintText: "Description"),
+                      decoration: Utils().textInputDecoration(
+                          'Description', "Enter the description"),
                       controller: addProjectController.description,
                       maxLines: 5,
                       validator: (value) {

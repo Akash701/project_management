@@ -12,8 +12,8 @@ import '../../../widgets/title_text.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class TaskDetails extends StatefulWidget {
-  int index;
-  TaskDetails(this.index);
+  // int pageIndex;
+  // TaskDetails(this.pageIndex);
   @override
   State<TaskDetails> createState() => _TaskDetailsState();
 }
@@ -21,13 +21,15 @@ class TaskDetails extends StatefulWidget {
 class _TaskDetailsState extends State<TaskDetails> {
   AddTaskController addTaskController = Get.put(AddTaskController());
   final formKey = GlobalKey<FormState>();
-  int slider = 10;
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        addEditTask();
-      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          addEditTask();
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text("Project Details"),
       ),
@@ -45,42 +47,60 @@ class _TaskDetailsState extends State<TaskDetails> {
               itemBuilder: (context, index) {
                 if (cont.taskCount > 0) {
                   TaskModel? taskModel =
-                      addTaskController.taskObservableBox.getAt(widget.index);
+                      addTaskController.taskObservableBox.getAt(index);
                   return Card(
                     child: ListTile(
                       title: Text('${taskModel?.taskName}'),
-                      subtitle: Row(
+                      subtitle: Column(
                         children: [
-                          Text("${taskModel?.startDate}"),
                           SizedBox(
-                            width: 15,
+                            height: 15,
                           ),
-                          Text("${taskModel?.endDate}"),
+                          Row(
+                            children: [
+                              Text("${taskModel?.startDate}"),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text("${taskModel?.endDate}"),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green[300],
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                ),
+                                onPressed: () {
+                                  addEditTask(
+                                      index: index, taskModel: taskModel);
+                                },
+                                child: Text('Edit'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  cont.deleteTask(index: index);
+                                },
+                                child: Text('Delete'),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                      leading: Text("${taskModel?.progress}"),
-                      // trailing: Row(
-                      //   mainAxisSize: MainAxisSize.min,
-                      //   children: [
-                      //     ElevatedButton(
-                      //       style: ElevatedButton.styleFrom(
-                      //         backgroundColor: Colors.green[300],
-                      //         padding: EdgeInsets.symmetric(
-                      //             horizontal: 10, vertical: 10),
-                      //       ),
-                      //       onPressed: () {
-                      //         addEditTask(index: index, taskModel: taskModel);
-                      //       },
-                      //       child: Text('Edit'),
-                      //     ),
-                      //     TextButton(
-                      //       onPressed: () {
-                      //         cont.deleteTask(index: widget.index!);
-                      //       },
-                      //       child: Text('Delete'),
-                      //     ),
-                      //   ],
-                      // ),
+                      leading: CircularPercentIndicator(
+                        radius: 27.0,
+                        lineWidth: 5.0,
+                        percent:
+                            addTaskController.slider.value.toDouble() / 100,
+                        center: new Text("${taskModel?.progress}%"),
+                        progressColor: Colors.green,
+                      ),
                     ),
                   );
                 } else {
@@ -103,12 +123,12 @@ class _TaskDetailsState extends State<TaskDetails> {
             addTaskController.taskName.text = taskModel.taskName.toString();
             addTaskController.endDate.text = taskModel.endDate.toString();
             addTaskController.startDate.text = taskModel.startDate.toString();
-            // addTaskController.progress.text = taskModel.progress.toString();
+            addTaskController.progress.text = taskModel.progress.toString();
           } else {
             addTaskController.taskName.clear();
             addTaskController.endDate.clear();
             addTaskController.startDate.clear();
-            // addTaskController.progress.clear();
+            addTaskController.progress.clear();
           }
           return Material(
             child: Form(
@@ -278,7 +298,7 @@ class _TaskDetailsState extends State<TaskDetails> {
 
                             if (index != null) {
                               addTaskController.updateTask(
-                                index: widget.index,
+                                index: index,
                                 taskModel: TaskModel(
                                   taskName: taskText,
                                   startDate: startText,

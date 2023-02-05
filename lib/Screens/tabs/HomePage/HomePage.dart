@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(TaskDetails(index));
+                          Get.to(() => TaskDetails());
                         },
                         child: Card(
                           child: Container(
