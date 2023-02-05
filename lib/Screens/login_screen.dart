@@ -46,9 +46,13 @@ class _LoginPageState extends State<LoginPage> {
               key: globalFormKey,
               child: Column(
                 children: [
+                  Text(
+                    "PROJECT MANAGEMENT",
+                    style: TextStyle(fontSize: 10),
+                  ),
                   SizedBox(height: 15),
                   Text(
-                    "Login",
+                    "Login".toUpperCase(),
                     style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                     // style: Theme.of(context).textTheme.headline2,
                   ),

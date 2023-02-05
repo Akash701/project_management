@@ -58,11 +58,27 @@ class _TaskDetailsState extends State<TaskDetails> {
                           ),
                           Row(
                             children: [
-                              Text("${taskModel?.startDate}"),
+                              Column(
+                                children: [
+                                  Text('Start Date'),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("${taskModel?.startDate}"),
+                                ],
+                              ),
                               SizedBox(
                                 width: 15,
                               ),
-                              Text("${taskModel?.endDate}"),
+                              Column(
+                                children: [
+                                  Text('End Date'),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("${taskModel?.endDate}"),
+                                ],
+                              ),
                             ],
                           ),
                           SizedBox(

@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../Common/Utils.dart';
 import '../../../getxController/addProjectController.dart';
 import '../../../getxController/addTaskController.dart';
 import '../../../models/projectModel.dart';
@@ -36,6 +37,9 @@ class _HomePageState extends State<HomePage> {
                     addProjectController.observableBox.getAt(index);
                 return Column(
                   children: [
+                    SizedBox(
+                      height: 10,
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: GestureDetector(
@@ -88,18 +92,18 @@ class _HomePageState extends State<HomePage> {
                                   height: 10,
                                 ),
                                 Divider(),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Icon(Icons.task),
-                                    Text(
-                                      '${addTaskController.taskCount}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                  ],
-                                ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Icon(Icons.task),
+                                //     Text(
+                                //       '${addTaskController.taskCount}',
+                                //       style: TextStyle(
+                                //           fontWeight: FontWeight.w700),
+                                //     ),
+                                //   ],
+                                // ),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -165,7 +169,8 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(hintText: "Project"),
+                      decoration: Utils().textInputDecoration(
+                          'Project Name', "Enter the Project name"),
                       controller: addProjectController.projectName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -178,7 +183,8 @@ class _HomePageState extends State<HomePage> {
                       height: 20,
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(hintText: "team name"),
+                      decoration: Utils().textInputDecoration(
+                          'Task Name', "Enter the Task name"),
                       controller: addProjectController.teamName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -191,8 +197,8 @@ class _HomePageState extends State<HomePage> {
                       height: 20,
                     ),
                     TextFormField(
-                      decoration:
-                          const InputDecoration(hintText: "Description"),
+                      decoration: Utils().textInputDecoration(
+                          'Description', "Enter the description"),
                       controller: addProjectController.description,
                       maxLines: 5,
                       validator: (value) {

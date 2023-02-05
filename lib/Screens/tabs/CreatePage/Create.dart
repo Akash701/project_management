@@ -53,7 +53,7 @@ class _CreateState extends State<Create> {
                     contentPadding: EdgeInsets.symmetric(),
                     title: TitleText(
                       text:
-                          "${memberModel?.memberName} (${memberModel?.gender})",
+                          "${memberModel?.memberName} (${memberModel?.gender?.toUpperCase()})",
                       fontSize: 18,
                     ),
                     subtitle: Column(
@@ -361,19 +361,14 @@ class _CreateState extends State<Create> {
                           }
                           return null;
                         },
-                        // Initial Value
                         value: addMemberController.dropdownvalue.value,
-                        // Down Arrow Icon
                         icon: const Icon(Icons.keyboard_arrow_down),
-                        // Array list of items
                         items: addMemberController.items.map((String items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(items),
                           );
                         }).toList(),
-                        // After selecting the desired option,it will
-                        // change button value to selected value
                         onChanged: (String? newValue) {
                           addMemberController.dropdownvalue.value = newValue!;
                         },
@@ -408,19 +403,14 @@ class _CreateState extends State<Create> {
                           }
                           return null;
                         },
-                        // Initial Value
                         value: addMemberController.skillvalue.value,
-                        // Down Arrow Icon
                         icon: const Icon(Icons.keyboard_arrow_down),
-                        // Array list of items
                         items: addMemberController.skills.map((String skills) {
                           return DropdownMenuItem(
                             value: skills,
                             child: Text(skills),
                           );
                         }).toList(),
-                        // After selecting the desired option,it will
-                        // change button value to selected value
                         onChanged: (String? newValue) {
                           addMemberController.skillvalue.value = newValue!;
                         },
