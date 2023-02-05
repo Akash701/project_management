@@ -36,85 +36,90 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Card(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 1.0), //(x,y)
-                                blurRadius: 6.0,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "${projectModel?.projectName}",
-                                    style: TextStyle(
-                                      fontSize: 20,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(TaskDetails(index));
+                        },
+                        child: Card(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(0.0, 1.0), //(x,y)
+                                  blurRadius: 6.0,
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${projectModel?.projectName}",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "Team: ${projectModel?.teamName}",
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                child: Text("${projectModel?.description}"),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Divider(),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(Icons.task),
-                                  Text(
-                                    '3',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () => addEditProject(
-                                        index: index,
-                                        projectModel: projectModel),
-                                    child: Text('Update'),
-                                  ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Colors.redAccent,
+                                    Text(
+                                      "Team: ${projectModel?.teamName}",
+                                      style: TextStyle(fontSize: 15),
                                     ),
-                                    onPressed: () =>
-                                        cont.deleteProject(index: index),
-                                    child: Text("Delete"),
-                                  ),
-                                ],
-                              )
-                            ],
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  child: Text("${projectModel?.description}"),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(Icons.task),
+                                    Text(
+                                      '3',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () => addEditProject(
+                                          index: index,
+                                          projectModel: projectModel),
+                                      child: Text('Update'),
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.redAccent,
+                                      ),
+                                      onPressed: () =>
+                                          cont.deleteProject(index: index),
+                                      child: Text("Delete"),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
